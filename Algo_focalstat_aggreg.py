@@ -6,6 +6,8 @@ import arcpy
 from arcpy.ia import *
 from arcpy.sa import *
 
+#Algorithme avec aggrégation 10m, focal statistiques rayon 2, longueur min 60
+
 def Model():  # Model
 
     # To allow overwriting outputs change overwriteOutput option to True.
