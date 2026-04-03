@@ -35,7 +35,7 @@ Le traitement comprend les étapes suivantes :
 | Type de statistique de lissage | Statistique sur la base de laquelle le lissage va être effectué |
 | Rayon pour le lissage global | Définit la taille du voisinage circulaire (en pixel) utilisé autour de chaque pixel pour calculer la moyenne (ou autre statistique sélectionnée)  |
 | Emplacement du MNT final en sortie | Emplacement du MNT final en sortie  |
-| Supprimer les fichiers interlédiaires après le traitement (checkbox) | Choix de supression de tous les rasters ayant servi dans la combinaison finale  |
+| Supprimer les fichiers intermédiaires après le traitement (checkbox) | Choix de supression de tous les rasters ayant servi dans la combinaison finale  |
 | Générer les courbes de niveau (checkbox) | Choix de générer les courbes de niveau sur le MNT final en sortie  |
 ---
 
@@ -75,7 +75,7 @@ Outil utilisé :  **Statistiques focales**
 
 Objectifs :
 
-- Calculer pour chaque cellule du ($\text{Raster}_{\text{Reechantillonne}}$) la différence avec les valeurs moyennes des cellules dans un voisinage défini (cellules comprises dans un disque de rayon R prédéfini : 100 cellules soit 250 m)
+- Calculer pour chaque cellule du ($\text{Raster}_{\text{Reechantillonne}}$) la différence avec les valeurs moyennes des cellules dans un voisinage défini (cellules comprises dans un disque de rayon R avec valeur par défaut (paramètre modifiable) : 100 cellules soit 250 m)
 
 - Dégage les grands ensembles : les zones à haute valeur d'écart-type correspondent aux montagnes, celles à faibles valeurs aux zones planes 
 
@@ -118,7 +118,7 @@ Image 2 ; a = 6, les zones de transitions sont réduites <br>
 
 
 - $k = 4$ : la valeur d'écart-type dans les zones de transition.
-Le paramètre par défaut **k** correspond au seuil autour duquel la sigmoïde bascule de 0 vers 1, c'est-à-dire, la valeur d'écart-type où la transition entre le lissage fort et l'absence de lissage est amorcée. 4 est une valeur récurrente observée manuellement dans les zones de transitions.
+Le paramètre par défaut **k** correspond au seuil autour duquel la sigmoïde bascule de 0 vers 1, c'est-à-dire, la valeur d'écart-type où la transition zone plane et zone de relief est amorcée. 4 est une valeur récurrente observée manuellement dans les zones de transitions.
 
 Raster en sortie : **Raster normalisé ($\text{Raster}_{\text{normalisé}}$)**
 
