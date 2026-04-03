@@ -89,7 +89,6 @@ Raster en sortie : **Raster de valeurs d'écart-type ($\text{Raster}_{\text{ET}}
 
 <img width="500" height="860" alt="image" src="https://github.com/user-attachments/assets/81d6266a-ffd4-4178-be01-fa034f17b838" />
 
-
 ---
 
 ## 3.3 Normalisation des valeurs d'écart type par une fonction sigmoïde
@@ -98,14 +97,14 @@ Les valeurs d'écart type du ($\text{Raster}_{\text{ET}}$) sont normalisées ent
 
 Outil utilisé : **Calculatrice Raster**
 
-$$C(\text{Raster}_{\text{ET}}) = \frac{1}{1 + e^{-a \cdot (x - k)}}$$
+$$C(\text{Raster}_{\text{ET}}) = \frac{1}{1 + e^{-a ⋅ (x - k)}}$$
 
 <img width="500" height="660" alt="image" src="https://github.com/user-attachments/assets/2d59c310-6803-4a08-ac0e-d79e380fb2e9" />
 
 
 Avec :
 
-- $\text{Raster}_{\text{ET}}$ : le raster en sortie des valeurs d'écart-type ([voir 3.1](#31-calcul-des-valeurs-décart-type))
+- $\text{Raster}_{\text{ET}}$ : le raster en sortie des valeurs d'écart-type ([voir 3.2](#32-calcul-des-valeurs-décart-type))
 - $a = 6$ : le coefficient de pente de la sigmoïde.
 Le paramètre par défaut **a = 6** détermine la brutalité de la transition ; plus a est grand, plus la transition est abrupte, plus les zones de transition sont petites. **6** a été choisi pour obtenir un lissage très différencié, avec une très petite zone de transition.
 <br>
@@ -159,12 +158,12 @@ Applique un lissage différencié sur l'entièreté du MNT choisi en entrée, se
 Méthode : 
 La combinaison finale repose sur la pondération suivante : 
 
-$\text{MNT}_{\text{lissé de manière différencielle}}$ = $$A ⋅ C + (1 - C) ⋅ B$$
+$\text{MNT}_{\text{lissé de manière différencielle}}$ = $$A \cdot C + (1 - C) \cdot B$$
 
 Avec :
-- A : **$\text{Raster}_{\text{Reechantillonne}}$**([voir 3.1](#31-Rééchantillonage))  
-- B : **$\text{MNT}_{\text{lissé}}$** ([voir 3.3](#33-lissage-général-du-mnt))
-- C : **$\text{Raster}_{\text{normalisé}}$** (valeurs entre 0 et 1) ([voir 3.2](#32-normalisation-des-valeurs-décart-type-par-une-fonction-sigmoïde))
+- A : **$\text{Raster}_{\text{Reechantillonne}}$**([voir 3.1](#31-rééchantillonage))  
+- B : **$\text{MNT}_{\text{lissé}}$** ([voir 3.4](#34-lissage-général-du-mnt))
+- C : **$\text{Raster}_{\text{normalisé}}$** (valeurs entre 0 et 1) ([voir 3.3](#33-normalisation-des-valeurs-décart-type-par-une-fonction-sigmoïde))
 
 Interprétation :
 
@@ -179,7 +178,7 @@ Pour une cellule du MNT final, de position i,j où :
 - C = 0.5
   
 Alors :
-$\text{MNT}_{\text{lissé de manière différencielle}}(i,j)$ = $$100 ⋅ 0.5 + (1 - 0.5) ⋅ 95 = 50 + 47.5 = 97.5$$
+$\text{MNT}_{\text{lissé de manière différencielle}}(i,j)$ = $$100 \cdot 0.5 + (1 - 0.5) \cdot 95 = 50 + 47.5 = 97.5$$
 
 Raster en sortie : **$\text{MNT}_{\text{lissé de manière différencielle}}$**
 
