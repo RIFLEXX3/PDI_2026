@@ -109,11 +109,11 @@ Avec :
 Le paramètre par défaut **a = 6** détermine la brutalité de la transition ; plus a est grand, plus la transition est abrupte, plus les zones de transition sont petites. **6** a été choisi pour obtenir un lissage très différencié, avec une très petite zone de transition.
 <br>
       
- Image 1 ; a = 4, les zones de transition sont plus étendues
+ Image 1 ; a = 4, les zones de transition sont plus étendues <br>
 <img width="500" height="1024" alt="image" src="https://github.com/user-attachments/assets/e2ba986e-1fa1-4ec3-8be3-352ee605f13a" />
 
   
-Image 2 ; a = 6, les zones de transitions sont réduites
+Image 2 ; a = 6, les zones de transitions sont réduites <br>
 <img width="500" height="956" alt="image" src="https://github.com/user-attachments/assets/2f705330-5c93-4f45-9416-51fe5183a6bb" />
 
 
