@@ -172,13 +172,13 @@ Interprétation :
 - Entre les deux → transition progressive contrôlée par la sigmoïde, les valeurs des deux MNT sont combinées selon leur poids.
 
 **Exemple :**
-Pour une cellule du MNT final, de position i,j où :
+Pour une cellule du MNT final, de position i , j où :
 - A = 100 m
 - B = 95 m
 - C = 0.5
   
 Alors :
-$\text{MNT}_{\text{lissé de manière différencielle}}(i,j)$ = $$100 \cdot 0.5 + (1 - 0.5) \cdot 95 = 50 + 47.5 = 97.5$$
+$\text{MNT}_{\text{lissé de manière différencielle}}(i,j)$ = $$100 \cdot 0.5 + (1 - 0.5) \cdot 95 = 50 + 47.5 = 97.5 m$$
 
 Raster en sortie : **$\text{MNT}_{\text{lissé de manière différencielle}}$**
 
