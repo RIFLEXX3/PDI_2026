@@ -64,7 +64,7 @@ Paramètres :
 - Taille de rééchantillonage : côtés X & Y de la cellule, une seule valeur est choisie car c'est un carré, par défaut à 2,5m (paramètre modifiable)
 - Méthode de rééchantillonage : **Plus proches voisins (nearest)**
 
-Raster en sortie : **Raster rééchantillonné**
+Raster en sortie : **Raster rééchantillonné ($\text{Raster}_{\text{Reechantillonne}}$)**
 
 ## 3.2 Calcul des valeurs d'écart-type
 
@@ -75,7 +75,7 @@ Outil utilisé :  **Statistiques focales**
 
 Objectifs :
 
-- Calculer pour chaque cellule du MNT rééchantilloné la différence avec les valeurs moyennes des cellules dans un voisinage défini (cellules comprises dans un disque de rayon R prédéfini : 100 cellules soit 250 m)
+- Calculer pour chaque cellule du ($\text{Raster}_{\text{Reechantillonne}}$) la différence avec les valeurs moyennes des cellules dans un voisinage défini (cellules comprises dans un disque de rayon R prédéfini : 100 cellules soit 250 m)
 
 - Dégage les grands ensembles : les zones à haute valeur d'écart-type correspondent aux montagnes, celles à faibles valeurs aux zones planes 
 
@@ -94,7 +94,7 @@ Raster en sortie : **Raster de valeurs d'écart-type ($\text{Raster}_{\text{ET}}
 
 ## 3.3 Normalisation des valeurs d'écart type par une fonction sigmoïde
 
-Les valeurs d'écart type sont normalisées entre 0 et 1. La sigmoïde transforme les valeurs d'écart type en un gradient continu entre 0 et 1.
+Les valeurs d'écart type du ($\text{Raster}_{\text{ET}}$) sont normalisées entre 0 et 1. La sigmoïde transforme les valeurs d'écart type en un gradient continu entre 0 et 1.
 
 Outil utilisé : **Calculatrice Raster**
 
@@ -103,25 +103,25 @@ $$C(\text{Raster}_{\text{ET}}) = \frac{1}{1 + e^{-a \cdot (x - k)}}$$
 <img width="500" height="660" alt="image" src="https://github.com/user-attachments/assets/2d59c310-6803-4a08-ac0e-d79e380fb2e9" />
 
 
-
 Avec :
 
 - $\text{Raster}_{\text{ET}}$ : le raster en sortie des valeurs d'écart-type ([voir 3.1](#31-calcul-des-valeurs-décart-type))
 - $a = 6$ : le coefficient de pente de la sigmoïde.
-Le paramètre par défaut **a = 6** détermine la brutalité de la transition ; plus a est grand, plus la transition est abrupte, plus les zones de transition sont petites. **6** a été choisi pour obtenir un lissage très différencié.
+Le paramètre par défaut **a = 6** détermine la brutalité de la transition ; plus a est grand, plus la transition est abrupte, plus les zones de transition sont petites. **6** a été choisi pour obtenir un lissage très différencié, avec une très petite zone de transition.
 <br>
-  k = 4                                          k = 6
-<p float="left">
-  <img src="https://github.com/user-attachments/assets/714a0afe-a71f-41cc-9a33-daf505d596e5" width="45%" />
-  <img src="https://github.com/user-attachments/assets/9a7f42c6-290f-4d85-bc4b-2af3619504dc" width="45%" />
-</p>
+      
+ Image 1 ; a = 4, les zones de transition sont plus étendues
+<img width="500" height="1024" alt="image" src="https://github.com/user-attachments/assets/e2ba986e-1fa1-4ec3-8be3-352ee605f13a" />
 
+  
+Image 2 ; a = 6, les zones de transitions sont réduites
+<img width="500" height="956" alt="image" src="https://github.com/user-attachments/assets/2f705330-5c93-4f45-9416-51fe5183a6bb" />
 
 
 - $k = 4$ : la valeur d'écart-type dans les zones de transition.
-Le paramètre par défaut **k** correspond au seuil autour duquel la sigmoïde bascule de 0 vers 1, c'est-à-dire, où la transition entre le lissage fort et l'absence de lissage commence.
+Le paramètre par défaut **k** correspond au seuil autour duquel la sigmoïde bascule de 0 vers 1, c'est-à-dire, la valeur d'écart-type où la transition entre le lissage fort et l'absence de lissage est amorcée. 4 est une valeur récurrente observée manuellement dans les zones de transitions.
 
-Raster en sortie : **Raster normalisé ($\text{Raster}_{\text{normalisé}}$) entre 0 et 1**
+Raster en sortie : **Raster normalisé ($\text{Raster}_{\text{normalisé}}$)**
 
 <img width="500" height="856" alt="image" src="https://github.com/user-attachments/assets/d5a55f77-3e6e-4751-9586-d808a01cdb67" />
 
@@ -132,10 +132,11 @@ Il sera ensuite utilisé comme **coefficient de pondération** dans l'étape fin
 
 ## 3.4 Lissage général du MNT
 
-Lissage du MNT, qui sera utilisé pour la combinaison finale
+Lissage du MNT de référence ($\text{Raster}_{\text{Reechantillonne}}$) qui sera utilisé pour la combinaison finale
 
 Outil utilisé : **Statistiques focales**
 
+Objectif :
 - lisser uniformément le MNT 
 
 Paramètres :
@@ -158,10 +159,10 @@ Applique un lissage différencié sur l'entièreté du MNT choisi en entrée, se
 Méthode : 
 La combinaison finale repose sur la pondération suivante : 
 
-$$\text{MNT}_{\text{final}} = A \cdot C + (1 - C) \cdot B$$
+$\text{MNT}_{\text{lissé de manière différencielle}}$ = $$A ⋅ C + (1 - C) ⋅ B$$
 
 Avec :
-- A : **$\text{MNT}_{\text{origine}}$**  
+- A : **$\text{Raster}_{\text{Reechantillonne}}$**([voir 3.1](#31-Rééchantillonage))  
 - B : **$\text{MNT}_{\text{lissé}}$** ([voir 3.3](#33-lissage-général-du-mnt))
 - C : **$\text{Raster}_{\text{normalisé}}$** (valeurs entre 0 et 1) ([voir 3.2](#32-normalisation-des-valeurs-décart-type-par-une-fonction-sigmoïde))
 
@@ -169,7 +170,16 @@ Interprétation :
 
 - Lorsque $C \approx 1$ (fort relief) → le MNT non lissé domine
 - Lorsque $C \approx 0$ (faible relief) → le MNT lissé domine
-- Entre les deux → transition progressive contrôlée par la sigmoïde
+- Entre les deux → transition progressive contrôlée par la sigmoïde, les valeurs des deux MNT sont combinées selon leur poids.
+
+**Exemple :**
+Pour une cellule du MNT final, de position i,j où :
+- A = 100 m
+- B = 95 m
+- C = 0.5
+  
+Alors :
+$\text{MNT}_{\text{lissé de manière différencielle}}(i,j)$ = $$100 ⋅ 0.5 + (1 - 0.5) ⋅ 95 = 50 + 47.5 = 97.5$$
 
 Raster en sortie : **$\text{MNT}_{\text{lissé de manière différencielle}}$**
 
@@ -185,7 +195,7 @@ APRES
 ## 3.6 Calcul des courbes de niveau 
 
 **Paramètres :**  
-rééchantillonage => Paramètre retiré du code car un rééchantillonage est déja effectué dans la première étape de l'algorithme de lissage 
+rééchantillonage => Paramètre retiré du code d'origine car un rééchantillonage est déja effectué dans la première étape de l'algorithme de lissage <br>
 simplify_tolerance = 0.5,  
 smooth_tolerance = 15,  
 simplify_tolerance_bis = 0.5  
