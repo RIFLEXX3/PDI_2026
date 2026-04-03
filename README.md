@@ -35,6 +35,8 @@ Le traitement comprend les étapes suivantes :
 | Type de statistique de lissage | Statistique sur la base de laquelle le lissage va être effectué |
 | Rayon pour le lissage global | Définit la taille du voisinage circulaire (en pixel) utilisé autour de chaque pixel pour calculer la moyenne (ou autre statistique sélectionnée)  |
 | Emplacement du MNT final en sortie | Emplacement du MNT final en sortie  |
+| Supprimer les fichiers interlédiaires après le traitement (checkbox) | Choix de supression de tous les rasters ayant servi dans la combinaison finale  |
+| Générer les courbes de niveau (checkbox) | Choix de générer les courbes de niveau sur le MNT final en sortie  |
 ---
 
 
@@ -59,7 +61,7 @@ Objectifs :
 - Attribuer une nouvelle valeur à tous les nouveaux pixels en fonction des pixels voisins avec la méthode "NEAREST".
 
 Paramètres :
-- Taille de rééchantillonage : côtés X & Y de la cellule, une seule valeur est choisie car c'est un carré
+- Taille de rééchantillonage : côtés X & Y de la cellule, une seule valeur est choisie car c'est un carré, par défaut à 2,5m (paramètre modifiable)
 - Méthode de rééchantillonage : **Plus proches voisins (nearest)**
 
 Raster en sortie : **Raster rééchantillonné**
@@ -79,7 +81,7 @@ Objectifs :
 
 Paramètres :
 - Type de voisinage : **CERCLE**
-- Rayon : **100** (valeur modifiable)
+- Rayon : **100** (paramètre modifiable)
 - Type d'unité : **cellule**
 - Type de statistiques : **Ecart-type**
 
@@ -107,6 +109,15 @@ Avec :
 - $\text{Raster}_{\text{ET}}$ : le raster en sortie des valeurs d'écart-type ([voir 3.1](#31-calcul-des-valeurs-décart-type))
 - $a = 6$ : le coefficient de pente de la sigmoïde.
 Le paramètre par défaut **a = 6** détermine la brutalité de la transition ; plus a est grand, plus la transition est abrupte, plus les zones de transition sont petites. **6** a été choisi pour obtenir un lissage très différencié.
+<br>
+  k = 4                                          k = 6
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/714a0afe-a71f-41cc-9a33-daf505d596e5" width="45%" />
+  <img src="https://github.com/user-attachments/assets/9a7f42c6-290f-4d85-bc4b-2af3619504dc" width="45%" />
+</p>
+
+
+
 - $k = 4$ : la valeur d'écart-type dans les zones de transition.
 Le paramètre par défaut **k** correspond au seuil autour duquel la sigmoïde bascule de 0 vers 1, c'est-à-dire, où la transition entre le lissage fort et l'absence de lissage commence.
 
@@ -172,7 +183,9 @@ APRES
 
 
 ## 3.6 Calcul des courbes de niveau 
+
 **Paramètres :**  
+rééchantillonage => Paramètre retiré du code car un rééchantillonage est déja effectué dans la première étape de l'algorithme de lissage 
 simplify_tolerance = 0.5,  
 smooth_tolerance = 15,  
 simplify_tolerance_bis = 0.5  
